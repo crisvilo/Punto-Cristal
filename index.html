@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto Cristal | Cerveza Fría en Caba a Domicilio</title>
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6F00;
+            --primary-dark: #E65100;
+            --primary-light: #FF9E80;
+            --accent: #FFD54F;
+            --dark-glass: rgba(18, 18, 18, 0.78);
+            --card-glass: rgba(30, 30, 30, 0.75);
+            --border-glass: rgba(255, 111, 0, 0.35);
+            --light: #F8F9FA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Fondo global fijo visible en toda la página */
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), 
+                        url('https://images.unsplash.com/photo-1535958636474-b021ee887b13?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Hero Section / Banner principal */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 1.5rem 2rem;
+        }
+
+        .location-badge {
+            background: rgba(255, 111, 0, 0.25);
+            border: 1px solid var(--primary);
+            backdrop-filter: blur(8px);
+            color: var(--accent);
+            padding: 0.6rem 1.4rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            box-shadow: 0 4px 15px rgba(255, 111, 0, 0.2);
+        }
+
+        .brand-title {
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
+            font-weight: 900;
+            color: #FFF;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 20px rgba(255, 111, 0, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .brand-title span {
+            color: var(--primary);
+        }
+
+        .brand-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            max-width: 680px;
+            margin-bottom: 2rem;
+            color: #E0E0E0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .btn-hero {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #FFF;
+            padding: 1.1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 6px 25px rgba(255, 111, 0, 0.5);
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary-light);
+        }
+
+        .btn-hero:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 30px rgba(255, 111, 0, 0.8);
+        }
+
+        /* Contenedores y Estructura */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            color: #FFF;
+            margin-bottom: 3rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .section-title span {
+            color: var(--primary);
+        }
+
+        /* Grid de Cabas */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* Tarjeta Estilo Cristal (Glassmorphism) */
+        .product-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            border: 1px solid var(--border-glass);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(255, 111, 0, 0.35);
+        }
+
+        /* Badge de "La Más Vendida" */
+        .badge-bestseller {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #FFD54F, #FF6F00);
+            color: #000;
+            font-weight: 800;
+            font-size: 0.82rem;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(255, 213, 79, 0.5);
+            z-index: 10;
+            letter-spacing: 0.5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .product-image-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.08);
+        }
+
+        .product-body {
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #FFF;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-features li {
+            font-size: 0.95rem;
+            color: #DDD;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .product-features li i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Botón Directo WhatsApp */
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: #FFF;
+            text-decoration: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1EBE57;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Caja de Info Domicilio */
+        .info-card {
+            background: var(--dark-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-left: 5px solid var(--primary);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 4rem;
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .info-icon {
+            font-size: 2.8rem;
+            color: var(--primary);
+        }
+
+        .info-content h4 {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 0.4rem;
+        }
+
+        .info-content p {
+            color: #CCC;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            padding: 2.5rem 1rem;
+            border-top: 1px solid rgba(255, 111, 0, 0.2);
+            color: #AAA;
+            font-size: 0.95rem;
+        }
+
+        footer strong {
+            color: #FFF;
+        }
+
+        footer span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .info-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="location-badge">
+            <i class="fas fa-location-dot"></i> Barrio San José, Buenavista Córdoba
+        </div>
+        <h1 class="brand-title">Punto <span>Cristal</span></h1>
+        <p class="brand-subtitle">Cabas llenas de hielo con tus cervezas heladas directamente hasta la puerta de tu casa.</p>
+        <a href="#catalogo" class="btn-hero">
+            <i class="fas fa-beer-mug-empty"></i> Ver Cabas Disponibles
+        </a>
+    </header>
+
+    <!-- Sección de Productos -->
+    <main class="container" id="catalogo">
+        <h2 class="section-title">Nuestras <span>Cabas con Hielo</span></h2>
+
+        <div class="products-grid">
+
+            <!-- Caba Costeñita (MÁS VENDIDA) -->
+            <article class="product-card">
+                <div class="badge-bestseller">🔥 LA MÁS VENDIDA</div>
+                <div class="product-image-container">
+                    <img src="IMG/costeñita.jpg" alt="Costeñita en Hielo" class="product-image">
+                </div>
+                <div class="product-body">
+                    <h3 class="product-title">Costeñita</h3>
+                    <ul class="product-features">
+                        <li><i class="fas fa-snowflake"></i> Heladas y listas para destapar</li>
+                        <li><i class="fas fa-box"></i> Incluye caba con abundante hielo</li>
+                        <li><i class="fas fa-truck-fast"></i> Entrega a domicilio inmediata</li>
+                    </ul>
+                    <div class="product-price">$120.000 COP</div>
+                    <a href="https://wa.me/573150575646?text=Hola%20C%C3%A9sar,%20quiero%20pedir%20una%20Caba%20de%20Coste%C3%B1ita" target="_blank" class="btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                    </a>
+                </div>
+            </article>
+
+            <!-- Caba Águila Negra -->
+            <article class="product-card">
+                <div class="product-image-container">
+                    <img src="IMG/aguilan.jpg" alt="Águila Negra" class="product-image">
+                </div>
+                <div class="product-body">
+                    <h3 class="product-title">Águila Negra</h3>
+                    <ul class="product-features">
+                        <li><i class="fas fa-snowflake"></i> Heladas y listas para destapar</li>
+                        <li><i class="fas fa-box"></i> Incluye caba con abundante hielo</li>
+                        <li><i class="fas fa-truck-fast"></i> Entrega a domicilio inmediata</li>
+                    </ul>
+                    <div class="product-price">$100.000 COP</div>
+                    <a href="https://wa.me/573150575646?text=Hola%20C%C3%A9sar,%20quiero%20pedir%20una%20Caba%20de%20%C3%81guila%20Negra" target="_blank" class="btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                    </a>
+                </div>
+            </article>
+
+            <!-- Caba Águila Light -->
+            <article class="product-card">
+                <div class="product-image-container">
+                    <img src="IMG/aguilal.jpg" alt="Águila Light" class="product-image">
+                </div>
+                <div class="product-body">
+                    <h3 class="product-title">Águila Light</h3>
+                    <ul class="product-features">
+                        <li><i class="fas fa-snowflake"></i> Heladas y listas para destapar</li>
+                        <li><i class="fas fa-box"></i> Incluye caba con abundante hielo</li>
+                        <li><i class="fas fa-truck-fast"></i> Entrega a domicilio inmediata</li>
+                    </ul>
+                    <div class="product-price">$110.000 COP</div>
+                    <a href="https://wa.me/573150575646?text=Hola%20C%C3%A9sar,%20quiero%20pedir%20una%20Caba%20de%20%C3%81guila%20Light" target="_blank" class="btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                    </a>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- Información de Cobertura -->
+        <div class="info-card">
+            <div class="info-icon">
+                <i class="fas fa-motorcycle"></i>
+            </div>
+            <div class="info-content">
+                <h4>Servicio de Domicilio Garantizado</h4>
+                <p>Atendemos únicamente bajo la modalidad de domicilio en el <strong>casco urbano de Buenavista, Córdoba y sus alrededores</strong>. ¡Tu cerveza llega superhelada hasta tu hogar!</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Punto Cristal</strong> &copy; 2026</p>
+        <p>Propietario: <span>César Martínez</span> | WhatsApp: <span>3150575646</span></p>
+        <p style="font-size: 0.85rem; margin-top: 0.4rem; color: #777;">Ubicación: Barrio San José — Buenavista, Córdoba</p>
+    </footer>
+
+</body>
+</html>
